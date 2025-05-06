@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from schemas.voos import Voo
 from models.database import get_db
 from models.voos import Voos
-import mensageria.pub as pub
+#import mensageria.pub as pub
 from sqlalchemy.orm import Session
 import logging
 
@@ -11,9 +11,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 router = APIRouter()
 
+
 @router.get("/voos")
 def get(db: Session = Depends(get_db)):
-    all_voos = db.query(Voos).all()
+    try:
+        all_voos = db.query(Voos).all()
+    except:
+        return "Não foi possível consultar o banco de dados"
     logging.info("GET_ALL_VOOS")
     voos = []
     for voo in all_voos:
@@ -38,7 +42,7 @@ def post(voo: Voo, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(novo_voo)
         logging.info("Voo criado com sucesso")
-        pub.publish_message("voos", "Voo criado com sucesso: " + str(novo_voo))
+        #pub.publish_message("voos", "Voo criado com sucesso: " + str(novo_voo))
         return { "mensagem": "Voo criado com sucesso",
                  "voo": novo_voo}
     except Exception as e:

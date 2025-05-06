@@ -4,7 +4,7 @@ from schemas.reservas   import Reserva
 from models.database  import get_db
 from models.reservas    import Reservas
 from models.voos    import Voos
-import mensageria.pub as pub
+#import mensageria.pub as pub
 from sqlalchemy.orm   import Session
 import logging
 
@@ -47,7 +47,7 @@ def efetuar_reserva(reserva: Reserva, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(novo_reserva)
         logging.info("Reserva criado com sucesso")
-        pub.publish_message("reservas", "Reserva criada com sucesso: " + str(novo_reserva))
+        #pub.publish_message("reservas", "Reserva criada com sucesso: " + str(novo_reserva))
         return { "mensagem": "Reserva criada com sucesso",
                  "reserva": novo_reserva}
     except Exception as e:
