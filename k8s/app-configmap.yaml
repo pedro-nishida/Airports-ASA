@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DB_HOST: "postgres-service"
+  DB_USER: "postgres"
+  DB_PASS: "7355608"
+  DB_NAME: "companhia_aerea"
+  RABBITMQ_HOST: "rabbitmq-service"
