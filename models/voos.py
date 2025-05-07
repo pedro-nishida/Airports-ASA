@@ -13,5 +13,5 @@ class Voos(Base):
     id_aviao = Column(Integer, ForeignKey('avioes.id'), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
 
-    def __str__(self):
+    def __str__(self): 
         return f"Aeroporto de Origem: {self.aeroporto_origem}, Aeroporto de Destino: {self.aeroporto_destino}, Assentos Disponíveis: {self.assentos_disponiveis}, Data: {self.data}, Preço: {self.preco:.2f}, ID do Avião: {self.id_aviao}"

@@ -6,7 +6,7 @@ services:
     container_name: server_postgres0
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 7355608
+      POSTGRES_PASSWORD: admin
       POSTGRES_DB: companhia_aerea
     ports:
       - "5432:5432"
@@ -15,27 +15,3 @@ services:
     networks:
       rede_docker:
         ipv4_address: 172.12.0.15
-  app:  
-    build: ./
-    #environment:
-      #DB_HOST: 172.12.0.15
-      #DB_USER: postgres
-      #DB_PASS: 030304
-    ports:
-      - "5000:5000"
-    networks:
-      rede_docker:
-        ipv4_address: 172.12.0.30
-    depends_on:
-      - postgres
-
-networks:
-  rede_docker:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.12.0.0/16
-
-volumes:
-  pgdata:
-    driver: local

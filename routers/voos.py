@@ -3,7 +3,6 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from schemas.voos import Voo
 from models.database import get_db
 from models.voos import Voos
-#import mensageria.pub as pub
 from sqlalchemy.orm import Session
 import logging
 
@@ -42,7 +41,6 @@ def post(voo: Voo, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(novo_voo)
         logging.info("Voo criado com sucesso")
-        #pub.publish_message("voos", "Voo criado com sucesso: " + str(novo_voo))
         return { "mensagem": "Voo criado com sucesso",
                  "voo": novo_voo}
     except Exception as e:
