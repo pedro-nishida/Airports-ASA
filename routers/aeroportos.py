@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from schemas.aeroportos import Aeroporto
 from models.database import get_db
 from models.aeroportos import Aeroportos
-import mensageria.pub as pub
 from sqlalchemy.orm import Session
 import logging
 
@@ -34,7 +33,6 @@ def post(aeroporto: Aeroporto, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(novo_aeroporto)
         logging.info("Aeroporto criado com sucesso")
-        pub.publish_message("aeroportos", "Aeroporto criado com sucesso: " + str(novo_aeroporto))
         return { "mensagem": "Aeroporto criado com sucesso",
                  "aeroporto": novo_aeroporto}
     except Exception as e:

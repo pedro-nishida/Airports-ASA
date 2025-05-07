@@ -3,7 +3,6 @@ from fastapi          import APIRouter, Depends, HTTPException, Response, status
 from schemas.avioes   import Aviao
 from models.database  import get_db
 from models.avioes    import Avioes
-import mensageria.pub as pub
 from sqlalchemy.orm   import Session
 import logging
 
@@ -34,7 +33,6 @@ def post(aviao: Aviao, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(novo_aviao)
         logging.info("Avião criado com sucesso")
-        pub.publish_message("avioes", "Avião criado com sucesso: " + str(novo_aviao))
         return { "mensagem": "Avião criado com sucesso",
                  "aviao": novo_aviao}
     except Exception as e:
