@@ -15,19 +15,6 @@ services:
     networks:
       rede_docker:
         ipv4_address: 172.12.0.15
-    
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbit13_projeto_final
-    hostname: my-rabbit
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-      - "25676:25676"
-    networks:
-      rede_docker:
-        ipv4_address: 172.12.0.20
-
   app:  
     build: ./
     #environment:
