@@ -10,9 +10,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 router = APIRouter()
 
+
 @router.get("/voos")
 def get(db: Session = Depends(get_db)):
-    all_voos = db.query(Voos).all()
+    try:
+        all_voos = db.query(Voos).all()
+    except:
+        return "Não foi possível consultar o banco de dados"
     logging.info("GET_ALL_VOOS")
     voos = []
     for voo in all_voos:

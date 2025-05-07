@@ -1,27 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-app
-  labels:
-    app: fastapi-app
+  name: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fastapi-app
+      app: app
   template:
     metadata:
       labels:
-        app: fastapi-app
+        app: app
     spec:
       containers:
-      - name: fastapi-app
-        image: ${YOUR_DOCKER_USERNAME}/projeto-final:latest
+      - name: app
+        image: pedronishida/companhia-aerea-app:latest
         ports:
         - containerPort: 5000
-        envFrom:
-        - configMapRef:
-            name: app-config
         env:
-        - name: SQLALCHEMY_DATABASE_URL
-          value: "postgresql://postgres:7355608@postgres-service:5432/companhia_aerea"
+        - name: DB_HOST
+          value: "postgres"
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_PASS
+          value: "7355608"
